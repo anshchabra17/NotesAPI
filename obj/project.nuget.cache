@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ileN4VOk07Q=",
+  "dgSpecHash": "qjgWgT3io6s=",
   "success": true,
-  "projectFilePath": "C:\\Users\\anshc\\Notesapi\\NotesAPI.csproj",
+  "projectFilePath": "C:\\Users\\anshc\\notesapi\\NotesAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\anshc\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\anshc\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

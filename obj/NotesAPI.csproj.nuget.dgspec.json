@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\anshc\\Notesapi\\NotesAPI.csproj": {}
+    "C:\\Users\\anshc\\notesapi\\NotesAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\anshc\\Notesapi\\NotesAPI.csproj": {
+    "C:\\Users\\anshc\\notesapi\\NotesAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\anshc\\Notesapi\\NotesAPI.csproj",
+        "projectUniqueName": "C:\\Users\\anshc\\notesapi\\NotesAPI.csproj",
         "projectName": "NotesAPI",
-        "projectPath": "C:\\Users\\anshc\\Notesapi\\NotesAPI.csproj",
+        "projectPath": "C:\\Users\\anshc\\notesapi\\NotesAPI.csproj",
         "packagesPath": "C:\\Users\\anshc\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\anshc\\Notesapi\\obj\\",
+        "outputPath": "C:\\Users\\anshc\\notesapi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
