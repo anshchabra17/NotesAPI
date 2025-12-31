@@ -67,5 +67,21 @@ namespace NotesAPI.Controllers
 
             return Ok(existingnote);
         }
+
+        [HttpDelete("{id}")]
+
+        public IActionResult DeleteNote(int id)
+        {
+            var note = _context.Notes.FirstOrDefault(c=> c.NoteID ==id);
+
+            if (note == null)
+            {
+                return NotFound();
+            }
+              
+            _context.Notes.Remove(note);  
+            _context.SaveChanges();
+            return NoContent();
+        }
     }
 }

@@ -6,5 +6,7 @@ public class Note
     public DateTime CreatedAt{get;set;}
     public DateTime? UpdatedAt{get;set;}
 
+    public int? CategoryID{get;set;}
+
 
 }

@@ -91,5 +91,21 @@ namespace NotesAPI.Controllers
 
         }
         
+        [HttpDelete("{id}")]
+
+        public IActionResult DeleteCategory(int id)
+        {
+            var category = _context.Categories.FirstOrDefault(c=>c.CategoryID==id);
+
+            if(category == null)
+            {
+                return NotFound();
+            }
+
+            _context.Categories.Remove(category);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
     }
 }
