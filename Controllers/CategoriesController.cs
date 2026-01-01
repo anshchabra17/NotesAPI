@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using NotesAPI.Data;
 
@@ -17,50 +18,23 @@ namespace NotesAPI.Controllers
             _context = context;
         }
 
-        [HttpPost]
-
-        public IActionResult CreateCategory(Category category)
-        {
-
-            if(category == null)
-            {
-                return BadRequest("Invalid input");
-            }
-
-            if(category.Name.IsNullOrEmpty())
-            {
-                return BadRequest("Name can not be empty");
-            }
-
-            if(category.Name.Length < 3)
-            {
-                return BadRequest("Name Length can not be less than 3 chars");
-            }
-            
-
-
-            _context.Categories.Add(category);
-            _context.SaveChanges();
-            
-
-
-            return Ok(category);
-        }
-
 
         [HttpGet]
-        public IActionResult GetAllCategories()
-        {
-            var categories = _context.Categories.ToList();
 
-            return Ok(categories);
+        public async Task<IActionResult> GetAllCategories()
+        {
+            var result = await _context.Categories.ToListAsync();
+
+           
+
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
 
-        public IActionResult GetCategoryById(int id)
+        public async Task<IActionResult> GetCategoryByID(int id)
         {
-            var category = _context.Categories.FirstOrDefault(c => c.CategoryID == id);
+            var category = await _context.Categories.FirstOrDefaultAsync(c=>c.CategoryID ==id);
 
             if(category == null)
             {
@@ -70,40 +44,56 @@ namespace NotesAPI.Controllers
             return Ok(category);
         }
 
+        [HttpPost]
+
+        public async Task <IActionResult> PostCategory(Category inputCategory)
+        {
+            if(inputCategory == null)
+            {
+                return BadRequest();
+            }
+
+            inputCategory.CreatedAt = DateTime.Now;
+
+            await _context.Categories.AddAsync(inputCategory);
+            await _context.SaveChangesAsync();
+
+            return Ok(inputCategory);
+        }
+
         [HttpPut("{id}")]
 
-        public IActionResult UpdateCategory(int id, Category updatedcategory)
+        public async Task <IActionResult> UpdateCategory(int id, Category inputCategory)
         {
-            var existingCategory = _context.Categories.FirstOrDefault(c=> c.CategoryID ==id);
-              
+            var existingCategory = await _context.Categories.FirstOrDefaultAsync(c=>c.CategoryID == id);
+
             if(existingCategory == null)
             {
                 return NotFound();
             }
-            
-           existingCategory.Name = updatedcategory.Name;
-           existingCategory.Description = updatedcategory.Description;
-           
 
-            _context.SaveChanges();
+            existingCategory.Name = inputCategory.Name;
+            existingCategory.Description = inputCategory.Description;
+            
+
+            await _context.SaveChangesAsync();
 
             return Ok(existingCategory);
-
         }
-        
+
         [HttpDelete("{id}")]
 
-        public IActionResult DeleteCategory(int id)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
-            var category = _context.Categories.FirstOrDefault(c=>c.CategoryID==id);
+            var cat = await _context.Categories.FirstOrDefaultAsync(d=>d.CategoryID==id);
 
-            if(category == null)
+            if(cat == null)
             {
                 return NotFound();
             }
 
-            _context.Categories.Remove(category);
-            _context.SaveChanges();
+            _context.Categories.Remove(cat);
+            await _context.SaveChangesAsync();
 
             return NoContent();
         }
