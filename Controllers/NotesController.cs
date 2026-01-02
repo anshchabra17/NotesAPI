@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using NotesAPI.Data;
+using NotesAPI.DTOs.Notes;
 
 namespace NotesAPI.Controllers
 {
@@ -41,20 +42,32 @@ namespace NotesAPI.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> CreateNote(Note note)
+        public async Task<IActionResult> CreateNote(CreateNoteDTO dto)
         {
             
 
-            if(note == null)
+            if(dto == null)
             {
                 return BadRequest();
             }
-            note.CreatedAt = DateTime.Now;
+            var note = new Note
+            {
+              Title = dto.Title,
+              Content = dto.Content,
+              CreatedAt = DateTime.Now  
+            };
 
            await _context.Notes.AddAsync(note);
            await _context.SaveChangesAsync();
 
-           return Ok(note);
+           return Ok(new NoteResponseDTO
+           {
+               NoteID = note.NoteID,
+               Title = note.Title,
+               Content = note.Content,
+               CreatedAt = note.CreatedAt,
+               UpdatedAt =note.UpdatedAt
+           });
             
         }
 
